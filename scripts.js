@@ -32,7 +32,7 @@ function getPlayerChoice() {
 function playRound(playerSelection, computerSelection) {
 
     computerSelection = getComputerChoice().toLowerCase();
-    //console.log(computerSelection);
+    console.log(computerSelection);
     playerSelection = getPlayerChoice().toLowerCase();
     //console.log(playerSelection);
 
@@ -44,15 +44,17 @@ function playRound(playerSelection, computerSelection) {
         (computerSelection == "rock" && playerSelection == "scissors" ) ||
         (computerSelection == "paper" && playerSelection == "rock") ||
         (computerSelection == "scissors" && playerSelection == "paper")) {
+            roundWinner = 'computer';
             return `The Computer won! ${computerSelection} beats ${playerSelection}`;
-            roundWinner = 'computer'
+            
             //console.log(`The Computer won! ${computerSelection} beats ${playerSelection}`);
     } else if (
         (playerSelection == "rock" && computerSelection == "scissors" ) ||
         (playerSelection == "paper" && computerSelection == "rock") ||
         (playerSelection == "scissors" && computerSelection == "paper")){
+            roundWinner = 'player';
             return `You won! ${playerSelection} beats ${computerSelection}`;
-            roundWinner = 'player'
+            
             //console.log(`You won! ${playerSelection} beats ${computerSelection}`);
     } else {
         return "Error"
@@ -72,5 +74,8 @@ function game() {
         } else {
             console.log(playerScore + " : " + computerScore); 
         }
-    }
+        
+    } return
+
+    
 }
