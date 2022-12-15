@@ -4,6 +4,8 @@ let computerScore = 0;
 let playerScore = 0;
 let roundWinner = '';
 
+const div = document.querySelector('#announcement');
+
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() *3) +1;
     
@@ -19,8 +21,7 @@ function getComputerChoice() {
       
     }
     return computerSelection;
-}
-
+};
 
 function playRound(playerSelection, computerSelection) {
 
@@ -30,33 +31,70 @@ function playRound(playerSelection, computerSelection) {
     
 
     if (computerSelection == playerSelection) {
-        console.log("It's a tie!")
-        //return "It's a tie!";
         roundWinner = 'tie';
+        score();
+        scoreCheck();
+        return;
         
     } else if (
         (computerSelection == "rock" && playerSelection == "scissors" ) ||
         (computerSelection == "paper" && playerSelection == "rock") ||
         (computerSelection == "scissors" && playerSelection == "paper")) {
             roundWinner = 'computer';
-            console.log(`The Computer won! ${computerSelection} beats ${playerSelection}`)
-            //return `The Computer won! ${computerSelection} beats ${playerSelection}`;
-            
-            
+            score();
+            scoreCheck();
+            return;
+        
     } else if (
         (playerSelection == "rock" && computerSelection == "scissors" ) ||
         (playerSelection == "paper" && computerSelection == "rock") ||
         (playerSelection == "scissors" && computerSelection == "paper")){
             roundWinner = 'player';
-            console.log(`You won! ${playerSelection} beats ${computerSelection}`)
-            //return `You won! ${playerSelection} beats ${computerSelection}`;
+            score();
+            scoreCheck();
+            return;
             
             
     } else {
         return "Error"
     }
     
+    function score() {
+        if (roundWinner == 'computer') {
+            computerScore++;
+            const pcWin = document.createElement('div');
+            pcWin.classList.add('div');
+            pcWin.textContent = `The Computer won! ${computerSelection} beats ${playerSelection}. ${playerScore} : ${computerScore}`;
+            div.appendChild(pcWin);
+    } else if (roundWinner == 'player') {
+        playerScore++;
+        const pcWin = document.createElement('div');
+        pcWin.classList.add('div');
+        pcWin.textContent = `You won! ${playerSelection} beats ${computerSelection}. ${playerScore} : ${computerScore}`;
+        div.appendChild(pcWin);
+    } else if (roundWinner = 'tie') {
+        const pcWin = document.createElement('div');
+        pcWin.classList.add('div');
+        pcWin.textContent = `It's a tie! Both of you picked ${playerSelection}. ${playerScore} : ${computerScore}`;
+        div.appendChild(pcWin);
+    } else {
+        const pcWin = document.createElement('div');
+        pcWin.classList.add('div');
+        pcWin.textContent = `Oops. Something went wrong`;
+        div.appendChild(pcWin);
+    }
+    }
 }
+
+function scoreCheck() {
+if (playerScore == 5 || computerScore == 5) {
+    const result = document.createElement('h3');
+    result.classList.add('h3');
+    result.textContent = `We have a Winner: ${playerScore} : ${computerScore}`;
+    div.appendChild(result);
+}};
+
+
 
 const rockBtn = document.querySelector(".rock");
 rockBtn.addEventListener('click', () => {
